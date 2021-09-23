@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateRegistrosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('registros', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('idPlanMedio')->constrained('plan_medios')->onDelete('cascade');
+            $table->tinyInteger('status');
+            $table->text('observacion');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('registros');
+    }
+}
